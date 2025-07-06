@@ -1,0 +1,9 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 0.3.2
+_src_path: gh:algorandfoundation/algokit-typescript-template
+author_email: ivan.dossi@knobs.it
+author_name: Ivan Dossi
+contract_name: hkm
+preset_name: starter
+project_name: hkm-contracts
+
