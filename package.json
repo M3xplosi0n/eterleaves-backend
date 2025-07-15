@@ -4,17 +4,26 @@
   "description": "Smart contract deployer",
   "main": "smart_contracts/index.ts",
   "scripts": {
-    "build": "algokit compile ts smart_contracts --output-source-map --out-dir artifacts && algokit generate client smart_contracts/artifacts --output {app_spec_dir}/{contract_name}Client.ts",
+    "build:backend": "tsc",
+    "build:smart-contracts": "algokit compile ts smart_contracts --output-source-map --out-dir artifacts && algokit generate client smart_contracts/artifacts --output {app_spec_dir}/{contract_name}Client.ts",
     "deploy": "ts-node-dev --transpile-only --watch .env -r dotenv/config smart_contracts/index.ts",
     "deploy:ci": "ts-node --transpile-only -r dotenv/config smart_contracts/index.ts",
-    "check-types": "tsc --noEmit"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "node dist/src/server.js",
+    "check-types": "tsc --build tsconfig.workspace.json",
+    "check-types:backend": "tsc --noEmit",
+    "check-types:smart-contracts": "tsc --project tsconfig.smart-contracts.json --noEmit"
   },
   "engines": {
     "node": ">=22.0",
     "npm": ">=9.0"
   },
   "dependencies": {
-    "@algorandfoundation/algorand-typescript": "~1.0.0-beta.25 <1.0.0"
+    "@algorandfoundation/algorand-typescript": "~1.0.0-beta.25 <1.0.0",
+    "express": "^5.1.0",
+    "knex": "^3.1.0",
+    "objection": "^3.1.5",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "^5.0.0",
@@ -23,10 +32,14 @@
     "@algorandfoundation/puya-ts": "~1.0.0-beta.50 <1.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
     "@tsconfig/node22": "^22.0.0",
+    "@types/express": "^5.0.3",
+    "@types/knex": "^0.15.2",
+    "@types/node": "^24.0.13",
     "algosdk": "^3.0.0",
     "dotenv": "^16.4.7",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.3"
   },
   "overrides": {
     "esbuild": "0.25.0"

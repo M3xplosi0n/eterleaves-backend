@@ -1,9 +1,20 @@
-import { Contract, Bytes, bytes, uint64, assert, GlobalState, Txn, op, emit, abimethod } from "@algorandfoundation/algorand-typescript";
+import {
+  Contract,
+  Bytes,
+  bytes,
+  uint64,
+  assert,
+  GlobalState,
+  Txn,
+  op,
+  emit,
+  abimethod,
+} from "@algorandfoundation/algorand-typescript";
 import { validateCoordinates, createAndTransferNFT } from "./utils.algo";
 
 export class EterLeaves extends Contract {
   // Global state to track the number of created NFTs
-  totalSpots = GlobalState<uint64>({ initialValue: 0 });
+  totalLeaves = GlobalState<uint64>({ initialValue: 0 });
 
   /**
    * Creates a new Eter Leaf NFT
@@ -12,26 +23,36 @@ export class EterLeaves extends Contract {
    * @param message Message associated with the Eter Leaf
    * @returns ID of the created asset
    */
-  createEterLeaf(latOffset: uint64, longOffset: uint64, message: string): uint64 {
+  createEterLeaf(
+    latOffset: uint64,
+    longOffset: uint64,
+    message: string
+  ): uint64 {
     // Validate coordinates
     const isValid = validateCoordinates(latOffset, longOffset);
     assert(isValid === 1, "Invalid coordinates");
 
     // Increment the eter leaf counter
-    const spotId = this.totalSpots.value;
-    this.totalSpots.value += 1;
+    const leafId = this.totalLeaves.value;
+    this.totalLeaves.value += 1;
 
     // Create metadata
     const metadata = this.createMetadata(latOffset, longOffset, message);
 
     // Create asset name, unit name and URL specific to Eter Leaves
-    const spotIdBytes = op.itob(spotId);
-    const assetName = op.concat(Bytes("Eter Leaf #"), spotIdBytes);
+    const leafIdBytes = op.itob(leafId);
+    const assetName = op.concat(Bytes("Eter Leaf #"), leafIdBytes);
     const unitName = Bytes("ELEAF");
-    const url = op.concat(Bytes("ipfs://eter_leaf_metadata_"), spotIdBytes);
+    const url = op.concat(Bytes("ipfs://eter_leaf_metadata_"), leafIdBytes);
 
     // Use the generic function to create and transfer the NFT
-    const assetId = createAndTransferNFT(metadata, assetName, unitName, url, Txn.sender);
+    const assetId = createAndTransferNFT(
+      metadata,
+      assetName,
+      unitName,
+      url,
+      Txn.sender
+    );
 
     // Emit an event for Eter Leaf creation
     emit("EterLeafCreated", assetId);
@@ -46,7 +67,11 @@ export class EterLeaves extends Contract {
    * @param message Message associated with the Eter Leaf
    * @returns ID of the created asset
    */
-  private createMetadata(latOffset: uint64, longOffset: uint64, message: string): bytes {
+  private createMetadata(
+    latOffset: uint64,
+    longOffset: uint64,
+    message: string
+  ): bytes {
     // Convert uint64 to bytes
     const latBytes = op.itob(latOffset);
     const longBytes = op.itob(longOffset);
@@ -68,7 +93,7 @@ export class EterLeaves extends Contract {
    * Get the total number of Eter Leaves created
    */
   @abimethod({ readonly: true })
-  public getTotalSpotsTest(): uint64 {
-    return this.totalSpots.value;
+  public getTotalLeaves(): uint64 {
+    return this.totalLeaves.value;
   }
 }

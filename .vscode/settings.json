@@ -1,3 +1,6 @@
 {
   "files.eol": "\n",
-  }
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "typescript.enableProjectDiagnostics": true
+}

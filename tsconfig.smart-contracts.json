@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2020",
+    "lib": ["ES2020"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "outDir": "./dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,21 +18,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "composite": true
+    "composite": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"]
   },
-  "include": [
-    "src/**/*.ts",
-    "models/**/*.ts",
-    "migrations/**/*.ts",
-    "knexfile.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "smart_contracts"
-  ],
-  "references": [
-    { "path": "./tsconfig.smart-contracts.json" }
-  ]
+  "include": ["smart_contracts/**/*.ts"],
+  "exclude": ["node_modules", "dist", "coverage"]
 }

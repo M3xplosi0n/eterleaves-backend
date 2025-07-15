@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:13-3.1
+    platform: linux/amd64
+    container_name: eterleaves_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Password1!@
+      POSTGRES_DB: eterleaves_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - eterleaves_data:/var/lib/postgresql/data
+    networks:
+      - eterleaves_net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: eterleaves_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: m3xplosi0n@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Password1!@
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - eterleaves_net
+
+volumes:
+  eterleaves_data:
+  pgadmin_data:
+
+networks:
+  eterleaves_net:
+    driver: bridge

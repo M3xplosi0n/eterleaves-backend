@@ -26,12 +26,12 @@ environment_secrets = []
 [project.run]
 # Commands intended for use locally and in CI
 build = { commands = [
-  'npm run build',
+  'npm run build:smart-contracts',
 ], description = 'Build all smart contracts in the project' }
 
-build_local = { commands = ['npm run build'], description = 'Build all smart contracts in the project (local)' }
-build_dev = { commands = ['npm run build'], description = 'Build all smart contracts in the project (dev)' }
-build_prod = { commands = ['npm run build'], description = 'Build all smart contracts in the project (prod)' }
+build_local = { commands = ['npm run build:smart-contracts'], description = 'Build all smart contracts in the project (local)' }
+build_dev = { commands = ['npm run build:smart-contracts'], description = 'Build all smart contracts in the project (dev)' }
+build_prod = { commands = ['npm run build:smart-contracts'], description = 'Build all smart contracts in the project (prod)' }
 
 audit-teal = { commands = [
   # 🚨 IMPORTANT 🚨: For strict TEAL validation, remove --exclude statements. The default starter contract is not for production. Ensure thorough testing and adherence to best practices in smart contract development. This is not a replacement for a professional audit.
