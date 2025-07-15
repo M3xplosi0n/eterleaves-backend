@@ -11,7 +11,7 @@ const config: { [key: string]: Knex.Config } = {
       database: "eterleaves_db",
     },
     migrations: {
-      directory: "./migrations",
+      directory: "./src/migrations",
     },
   },
 };
