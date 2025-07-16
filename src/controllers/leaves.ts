@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { EterLeafService } from "../services/leaves";
-import { CreateEterLeafRequest, GetNearbyRequest } from "../types/leaves";
+import { EterLeafService, CreateEterLeafRequest } from "../services/leaves";
 
 export class EterLeafController {
   static async createEterLeaf(

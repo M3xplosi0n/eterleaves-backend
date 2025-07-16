@@ -1,10 +1,31 @@
 import { EterLeaf } from "../models/leaves";
-import {
-  CreateEterLeafRequest,
-  EterLeafResponse,
-  GetNearbyRequest,
-} from "../types/leaves";
 import { DEFAULT_RADIUS_METERS } from "../constants";
+import { Point } from "geojson";
+
+// Tipi per il servizio
+interface CreateEterLeafRequest {
+  title: string;
+  content: string;
+  longitude: number;
+  latitude: number;
+}
+
+interface GetNearbyRequest {
+  longitude: string;
+  latitude: string;
+  radius?: number;
+}
+
+interface EterLeafResponse {
+  id: number;
+  title: string;
+  content: string;
+  location: Point;
+  created_at: Date;
+}
+
+// Esportiamo i tipi per l'uso nel controller
+export type { CreateEterLeafRequest, GetNearbyRequest, EterLeafResponse };
 
 export class EterLeafService {
   static async createEterLeaf(data: CreateEterLeafRequest): Promise<any> {

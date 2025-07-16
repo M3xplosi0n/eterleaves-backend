@@ -1,6 +1,6 @@
 export const config = {
   port: process.env.PORT || 3000,
-  nodeEnv: process.env.NODE_ENV || "development",
+  env: process.env.ENVIRONMENT || "development",
   db: {
     // Database configuration can be added here if needed
   },
@@ -10,5 +10,5 @@ export const config = {
   },
 };
 
-export const isDevelopment = config.nodeEnv === "development";
-export const isProduction = config.nodeEnv === "production";
+export const isDevelopment = config.env === "development";
+export const isProduction = config.env === "production";
