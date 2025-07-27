@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { EterLeafService, CreateEterLeafRequest } from "../services/leaves";
+import { EterLeafService, SubmitTransactionRequest } from "../services/leaves";
 
 export class EterLeafController {
   static async createEterLeaf(
-    req: Request<{}, {}, CreateEterLeafRequest>,
+    req: Request<{}, {}, SubmitTransactionRequest>,
     res: Response
   ) {
     try {
-      const newSpot = await EterLeafService.createEterLeaf(req.body);
-      res.status(201).json(newSpot);
+      const result = await EterLeafService.createEterLeaf(req.body);
+      res.status(200).json(result);
     } catch (error) {
       console.error("Error creating eter leaf:", error);
       res.status(500).json({ error: "Internal server error" });

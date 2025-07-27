@@ -59,3 +59,43 @@ export const validateCreateEterLeaf = (
 
   next();
 };
+
+// Middleware to validate submit signed transaction request body
+export const validateSubmitSignedTransaction = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  const { signedTransaction, latitude, longitude, message } = req.body;
+
+  if (!signedTransaction || !Array.isArray(signedTransaction)) {
+    res.status(400).json({
+      error: "signedTransaction is required and must be an array",
+    });
+    return;
+  }
+
+  if (!message || typeof message !== "string" || message.trim().length === 0) {
+    res.status(400).json({
+      error: "message is required and must be a non-empty string",
+    });
+    return;
+  }
+
+  if (typeof latitude !== "number" || typeof longitude !== "number") {
+    res.status(400).json({
+      error: "latitude and longitude must be numbers",
+    });
+    return;
+  }
+
+  if (!isValidCoordinate(longitude, latitude)) {
+    res.status(400).json({
+      error:
+        "Invalid coordinates. Longitude must be between -180 and 180, latitude between -90 and 90",
+    });
+    return;
+  }
+
+  next();
+};

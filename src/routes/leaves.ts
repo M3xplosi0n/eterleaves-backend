@@ -1,14 +1,18 @@
 import { Router } from "express";
 import { EterLeafController } from "../controllers/leaves";
 import {
-  validateCreateEterLeaf,
   validateCoordinates,
+  validateSubmitSignedTransaction,
 } from "../middleware/leaves";
 
 const router = Router();
 
-// POST /api/leaves - Create a new eter leaf
-router.post("/", validateCreateEterLeaf, EterLeafController.createEterLeaf);
+// POST /api/leaves - Create a new eter leaf (blockchain transaction)
+router.post(
+  "/",
+  validateSubmitSignedTransaction,
+  EterLeafController.createEterLeaf
+);
 
 // GET /api/leaves - Get all eter leaves
 router.get("/", EterLeafController.getAllEterLeaves);

@@ -1,4 +1,11 @@
-import { uint64, bytes, Global, Txn, itxn, Account } from "@algorandfoundation/algorand-typescript";
+import {
+  uint64,
+  bytes,
+  Global,
+  Txn,
+  itxn,
+  Account,
+} from "@algorandfoundation/algorand-typescript";
 
 // Constants for coordinate validation
 export const MAX_LAT_VALUE: uint64 = 180000000; // 90 * 1000000 * 2
@@ -10,7 +17,10 @@ export const MAX_LONG_VALUE: uint64 = 360000000; // 180 * 1000000 * 2
  * @param longOffset Longitude with offset (real_value + 180) * 1000000
  * @returns 1 if valid, 0 if not valid
  */
-export function validateCoordinates(latOffset: uint64, longOffset: uint64): uint64 {
+export function validateCoordinates(
+  latOffset: uint64,
+  longOffset: uint64
+): uint64 {
   // Verify that latitude is between 0 and 180000000 (representing -90 to +90 with 6 decimals)
   const latValid = latOffset <= MAX_LAT_VALUE;
 
@@ -35,7 +45,7 @@ export function createAndTransferNFT(
   assetName: bytes,
   unitName: bytes,
   url: bytes,
-  receiver: Account = Txn.sender
+  receiver: Account
 ): uint64 {
   // Create the NFT as an Algorand asset
   const itxnResult = itxn
